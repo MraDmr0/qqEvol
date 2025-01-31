@@ -81,43 +81,44 @@ def rk4_qb(psi0 , wr , wl , E_in , potential , ti , tf , N , S , w1 , w2):
 
 
 @njit
-def rk4_qq(psi0 , wr , wl , E_in , potential , ti , tf , N , S , w1 , w2 ):
+def rk4_qq(psi0 , wr , wl , potential , envelope , ti , tf , N , S , w1 , w2 , D = 4):
   #definition of time array
   dt = (tf-ti)/N
   t = np.linspace(ti , tf , N+1)
   
   #assignement of RK coefficients
-  K0 =  np.zeros(4 , dtype = complex128)
-  K1 =  np.zeros(4 , dtype = complex128)
-  K2 =  np.zeros(4 , dtype = complex128)
-  K3 =  np.zeros(4 , dtype = complex128)
+  K0 =  np.zeros(D , dtype = complex128)
+  K1 =  np.zeros(D , dtype = complex128)
+  K2 =  np.zeros(D , dtype = complex128)
+  K3 =  np.zeros(D , dtype = complex128)
   #check if the number of points saved on the output file
   if N%S != 0 :
       a     = int(N/S)+2
   else:
       a     = int(N/S)+1
   #assign variables to store output data
-  tff    = np.zeros(a)
-  psif0  = np.zeros(a , dtype = complex128)
-  psif1  = np.zeros(a , dtype = complex128)
+  t_out  = np.zeros(a)
+  psif   = np.zeros((D , a) , dtype = complex128)
+  """ psif1  = np.zeros(a , dtype = complex128)
   psif2  = np.zeros(a , dtype = complex128)
-  psif3  = np.zeros(a , dtype = complex128)
-  E_out   = np.zeros(a)
+  psif3  = np.zeros(a , dtype = complex128) """
+  E_out  = np.zeros(a)
   #load the initial condition on output data
-  psif0[0] = psi0[0]
-  psif1[0] = psi0[1]
+  psif[: , 0]  = psi0[:]
+  t_out[0]       = t[0]
+  """ psif1[0] = psi0[1]
   psif2[0] = psi0[2]
-  psif3[0] = psi0[3]
-  tff[0]   = t[0]
-  if "potential1" in str(potential):
+  psif3[0] = psi0[3] """
+  
+  """ if "potential1" in str(potential):
       E_out[0]  = E_in[0,0]
   else:
-    E_out[0] = E_in[0,0] + E_in[0,1]
-  i        = 1
+      E_out[0] = E_in[0,0,0] + E_in[0,1,0]"""
+  i        = 1 
   #RK4 cycle
   for j in range(1 , N+1):
   
-      V  = potential(t[j-1] , dt , wr , wl , w1 , w2 , E_in[j-1,:] )
+      V , E_out  = potential(t[j-1] , dt , wr , wl , w1 , w2 , envelope , D )
       
       K0 = np.dot(V[0] , psi0)
       K1 = np.dot(V[1] , psi0 + 0.5*dt*K0)
@@ -131,16 +132,16 @@ def rk4_qq(psi0 , wr , wl , E_in , potential , ti , tf , N , S , w1 , w2 ):
       #append to output data
       if j%S == 0 or j == N:
 
-          psif0[i] = psi0[0]
-          psif1[i] = psi0[1]
+          psif[:,i] = psi0[:]
+          """ psif1[i] = psi0[1]
           psif2[i] = psi0[2]
-          psif3[i] = psi0[3]
-          tff[i]   = t[j]
+          psif3[i] = psi0[3] """
+          t_out[i]   = t[j]
           if "potential1" in str(potential):
-            E_out[i]  = E_in[j,0]
+            E_out[i,0]  = E_out[0,0]
           else:
-            E_out[i] = E_in[j,0] + E_in[j,1]
+            E_out[i,0]  = E_out[0,0] + E_out[0,1]
           i = i + 1
   
-  psiff = np.column_stack((psif0 , psif1 , psif2 , psif3))
-  return psiff , tff , E_out
+  psiff = np.column_stack((psif[0,:] , psif[1,:] , psif[2,:] , psif[3,:]))
+  return psiff , t_out , E_out

@@ -40,7 +40,8 @@ def allowed_data():
   "wl3"    ,
   "w1"     ,
   "w2"     ,
-  "mode"   ,
+  "qb_mod" ,
+  "env_mod",
   "F1"     , 
   "F2"     ,
   "t0"     , 
@@ -53,6 +54,17 @@ def allowed_data():
 
   return allowed_data
 #
+
+def std_data(): 
+  return {"prefix": "qq" , "D": 4  , "ti":0  , "S":20 , "qb_mod":"off" , "env_mod":"off", "F1":1}
+
+def mand_data(D):
+  if D == 2:
+    return ["psi0" , "psi1" ,  "N" , "wr00"   ,"wr01"   , "wr02"   , "wr03"   , "wl0"]
+
+def allowed_qbmode():
+  return {"off" : False , "on": True }
+
 def allowed_pairs():
   """pair of data that if not both specified are set to be equal """
   return [("w1" , "w2") , ("F1" , "F2") , ("sigma1" , "sigma2")]

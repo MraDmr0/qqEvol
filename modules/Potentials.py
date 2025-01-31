@@ -74,37 +74,47 @@ def potential2_qb(t0 , dt , wr1 , wr2, w1 , w2 , E_in):
 
 
 @njit
-def potential1_qq(t0 , dt , wr , wl , w1 , w2 , E_in):
+def potential1_qq(t0 , dt , wr , wl , w1 , w2 , envelope , D = 4 ):
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""
 
-  V   = np.zeros((3,4,4) , dtype = complex128)
+  V   = np.zeros((3 , D , D) , dtype = complex128)
   t   = np.array([t0 , t0+dt*0.5 , t0+dt])
+  
+  E   = np.array(3)
+  E   = envelope(t)
+
   for k in range(3):
-    for i in range(4):
-      for j in range(4):
+    for i in range(D):
+      for j in range(D):
         V[k,i,j] = wr[i,j]*np.exp((im/h_bar)*(wl[i] - wl[j])*t[k])
   
-    V[k,:,:] *= -im*E_in[0]*np.cos(w1*t[k])
+    V[k,:,:] *= -im*E[0,k]*np.cos(w1*t[k])
 
-  return V
+  return V , E[0]
 
 @njit
-def potential2_qq(t0 , dt , wr , wl , w1 , w2 , E_in):
+def potential2_qq(t0 , dt , wr , wl , w1 , w2 , envelope , D = 4):
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""
-  V   = np.zeros((3,4,4) , dtype = complex128)
-  V1   = np.zeros((3,4,4) , dtype = complex128)
-  V2   = np.zeros((3,4,4) , dtype = complex128)
+  V   = np.zeros((3,D,D)  , dtype = complex128)
+  V1  = np.zeros((3,D,D) , dtype = complex128)
+  V2  = np.zeros((3,D,D) , dtype = complex128)
   t   = np.array([t0 , t0+dt*0.5 , t0+dt])
+
+  E   = np.array((2,3))
+  E   = envelope(t)
+  
   for k in range(3):
-    for i in range(4):
-      for j in range(4):
+    for i in range(D):
+      for j in range(D):
         V[k,i,j] = wr[i,j]*np.exp((im/h_bar)*(wl[i] - wl[j])*t[k])
   
-    V1[k,:,:] = -im*E_in[0]*np.cos(w1*t[k])*V[k,:,:]
-    V2[k,:,:] = -im*E_in[1]*np.cos(w2*t[k])*V[k,:,:]
+    V1[k,:,:] = -im*E[0,k]*np.cos(w1*t[k])*V[k,:,:]
+    V2[k,:,:] = -im*E[1,k]*np.cos(w2*t[k])*V[k,:,:]
 
-  return V1 + V2
+    E[0,0] = E[0,0] + E[1,0]
+
+  return V1 + V2 , E[0,0]
 
 

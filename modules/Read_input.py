@@ -2,7 +2,7 @@
 #
 import re
 #
-def read_input(filein , allowed_data ):
+def read_input(filein , allowed_data):
   #empty dictionary
   data = {}
   #
