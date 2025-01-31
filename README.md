@@ -31,13 +31,13 @@ where qq.in and qq.out are the input and output files respectively. The script i
 - w1                    = frequency of the first (or only) potential impulse
 - F1                    = scaling factor of the potential
 - mode                  = specifies the form of the envelope function
-                        - "off"     : no potential
-                        - "const"   : constant potential in [ti , tf]
-                        - "singimp" : one sqare impulse of frequency "w1" in [t0 , t1]
-                        - "gauss"   : one gaussian impulse of frequency "w1", spreading "sigma1" and centered in "t0"
-                        - "2imp"    : two square impulses in [t0 , t1] with frequency "w1" and in [t00 , t11] with frewuency "w2"
-                        - "2gauss"  : two gaussian impulses of frequencies "w1" and "w2", centered in "t0" and "t1" with spreadings "sigma1" and  
-                                      "sigma2" 
+                          * "off"     : no potential
+                          * "const"   : constant potential in [ti , tf]
+                          * "singimp" : one sqare impulse of frequency "w1" in [t0 , t1]
+                          * "gauss"   : one gaussian impulse of frequency "w1", spreading "sigma1" and centered in "t0"
+                          * "2imp"    : two square impulses in [t0 , t1] with frequency "w1" and in [t00 , t11] with frewuency "w2"
+                          * "2gauss"  : two gaussian impulses of frequencies "w1" and "w2", centered in "t0" and "t1" with spreadings "sigma1" and  
+                                        "sigma2" 
 
 #### Optional
 - t0                      = begin of first impulse if square, or center of the first gaussian impulse 
