@@ -2,8 +2,11 @@
 
 ## Description of the package
 
-This Python package allows to simulate the time evolution of a two (qubit) or four (ququart) level systems under the action of an oscillating scalar potential. The system is specified through its Larmor frequencies $\omega_{L}$ (energy levels), while the potential is determined by its oscillating frequency $\omega$, the Rabi frequencies $\omega_{i,j}$ that couples the different levels and an enevelope function. The time integration is carried out thanks to the standard Runge-Kutta fourth order algorithm optimized thanks to the numba package. $V(t)_{i,j} = -i F(t) cos( \omega t ) \omega _{i,j} \exp(-i( \omega ^ {j}_{L}-\omega^{i}_{L})t)$
+This Python package allows to simulate the time evolution of a two (qubit) or four (ququart) level systems under the action of an oscillating scalar potential. The system is specified through its Larmor frequencies $\omega_{L}$ (energy levels), while the potential is determined by its oscillating frequency $\omega$, the Rabi frequencies $\omega_{i,j}$ that couples the different levels and an enevelope function. The time integration is carried out thanks to the standard Runge-Kutta fourth order algorithm optimized thanks to the numba package. 
 
+```math
+V(t)_{i,j} = -i F(t) cos( \omega t ) \omega _{i,j} \exp(-i( \omega ^ {j}_{L}-\omega^{i}_{L})t)
+```
 ## Usage
 
 The main calculation can be started from command line:
