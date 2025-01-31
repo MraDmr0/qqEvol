@@ -1,0 +1,60 @@
+####INPUT FILE FOR qq.py####
+#Refer to README for explanaitions
+#
+##PARAMETERS OF THE RUN##
+#Name of output file
+prefix  = qq
+#Number of states
+D       = 4
+#Initial time (s)
+ti      = 0
+#Final time (s)
+tf      = 1E-6
+#Number of steps
+N       = 1000000
+#
+S       = 20
+##PARAMETERS OF THE SYSTEM##
+#
+#Initial status
+psi0      = 1
+psi1      = 0
+psi2      = 0 
+psi3      = 0
+#Rabi frequencies (for P =2 intended as pure Rabi frequencies, for P = 4 intended as w_+)
+wr00    = 7.7547500E+11
+wr01    = 8.9312785E+06
+wr02    = 6.9506651E+08
+wr03    = 1.3351103E+09
+wr10    = 8.9312785E+06
+wr11    = 7.7539322E+11
+wr12    = 1.2791783E+09
+wr13    = 1.7714899E+08
+wr20    = 6.9506651E+08
+wr21    = 1.2791783E+09
+wr22    = 7.7695734E+11 
+wr23    = 1.2306611E+08
+wr30    = 1.3351103E+09
+wr31    = 1.7714899E+08
+wr32    = 1.2306611E+08
+wr33    = 7.7690773E+11
+#Lamror frequencies (for P = 2 intended as pure Larmor frequency in Hz, for P = 4 intended as energies of each level in meV)
+wl0    = 42.46880
+wl1    = 42.54951 
+wl2    = 46.16936
+wl3    = 46.24698 
+#Field frequency (Hz)
+w1      = 1.22620E+11
+w2      = 54.9952E+11
+#Envelope function
+mode    = 2gauss
+#Envelope params  
+F1      = 0.25
+t0      = 0.2E-6
+t1      = 0.8E-6
+sigma1  = 0.06
+#
+##END 
+
+
+
