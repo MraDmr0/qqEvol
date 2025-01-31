@@ -18,35 +18,35 @@ where qq.in and qq.out are the input and output files respectively. The script i
 ### Input file desctiption
 
 #### Mandatory
-- prefix                = name used for output files
-- D                     = number of energy levels
-- ti                    = initial time (s)
-- tf                    = final time (s)
-- N                     = number of time steps   
-- S                     = number of interations between each result save
-- pis0...psi3           = initial occupation of each state
-- wl0...wl3             = Larmor frewuencies of the system. For the two level system there is only one and is given in (Hz). The four level
+* prefix                = name used for output files
+* D                     = number of energy levels
+* ti                    = initial time (s)
+* tf                    = final time (s)
+* N                     = number of time steps   
+* S                     = number of interations between each result save
+* pis0...psi3           = initial occupation of each state
+* wl0...wl3             = Larmor frewuencies of the system. For the two level system there is only one and is given in (Hz). The four level
                         systems needs four values in (meV). 
-- w00...w33             = Rabi frequencies of the system. For the two level system only use w00...w03 and intende as w_+
-- w1                    = frequency of the first (or only) potential impulse
-- F1                    = scaling factor of the potential
-- mode                  = specifies the form of the envelope function
-                            - "off"     : no potential
-                            - "const"   : constant potential in [ti , tf]
-                            - "singimp" : one sqare impulse of frequency "w1" in [t0 , t1]
-                            - "gauss"   : one gaussian impulse of frequency "w1", spreading "sigma1" and centered in "t0"
-                            - "2imp"    : two square impulses in [t0 , t1] with frequency "w1" and in [t00 , t11] with frewuency "w2"
-                            - "2gauss"  : two gaussian impulses of frequencies "w1" and "w2", centered in "t0" and "t1" with spreadings "sigma1" and  
-                                          "sigma2" 
+* w00...w33             = Rabi frequencies of the system. For the two level system only use w00...w03 and intende as w_+
+* w1                    = frequency of the first (or only) potential impulse
+* F1                    = scaling factor of the potential
+* mode                  = specifies the form of the envelope function
+    * "off"     : no potential
+    * "const"   : constant potential in [ti , tf]
+    * "singimp" : one sqare impulse of frequency "w1" in [t0 , t1]
+    * "gauss"   : one gaussian impulse of frequency "w1", spreading "sigma1" and centered in "t0"
+    * "2imp"    : two square impulses in [t0 , t1] with frequency "w1" and in [t00 , t11] with frewuency "w2"
+    * "2gauss"  : two gaussian impulses of frequencies "w1" and "w2", centered in "t0" and "t1" with spreadings "sigma1" and  
+                  "sigma2" 
 
 #### Optional
-- t0                      = begin of first impulse if square, or center of the first gaussian impulse 
-- t1                      = end of first impulse if square, or center of the second gaussian impulse 
-- t00                     = begin of the second square impulse
-- t11                     = end of the second square impulse
-- sigma1                  = spreading of the first gaussian impulse
-- w2     (default w1)     = frequency of the second potential impulse
-- sigma2 (default sigma1) = spreading of the second gaussian impulse
+* t0                      = begin of first impulse if square, or center of the first gaussian impulse 
+* t1                      = end of first impulse if square, or center of the second gaussian impulse 
+* t00                     = begin of the second square impulse
+* t11                     = end of the second square impulse
+* sigma1                  = spreading of the first gaussian impulse
+* w2     (default w1)     = frequency of the second potential impulse
+* sigma2 (default sigma1) = spreading of the second gaussian impulse
 
 ## Coming next
 
