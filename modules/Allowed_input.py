@@ -3,7 +3,7 @@
 from RK4        import rk4_qb , rk4_qq
 from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
 from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
-from Set_input  import set_input_qb , set_input_qq
+from Set_input  import set_input_qb , set_input
 #
 def allowed_data():
   """allowed input data"""
@@ -54,35 +54,72 @@ def allowed_data():
 
   return allowed_data
 #
-
-def std_data(): 
-  return {"prefix": "qq" , "D": 4  , "ti":0  , "S":20 , "qb_mod":"off" , "env_mod":"off", "F1":1}
-
-def mand_data(D):
-  if D == 2:
-    return ["psi0" , "psi1" ,  "N" , "wr00"   ,"wr01"   , "wr02"   , "wr03"   , "wl0"]
-
-def allowed_qbmode():
-  return {"off" : False , "on": True }
-
-def allowed_pairs():
-  """pair of data that if not both specified are set to be equal """
-  return [("w1" , "w2") , ("F1" , "F2") , ("sigma1" , "sigma2")]
-
 def allowed_dimensions():
   """supported system dimensions"""
-  return { 2 : "qubit" , 4 : "ququart"}
-#
-def allowed_rk():
-  """dictionary to choose which rk4 and set_input functions to use"""
-  return { 2 : [rk4_qb , set_input_qb] , 4 : [rk4_qq , set_input_qq]}
-#
-def allowed_envelopes():
-  """supported envelope functions"""
-  return {"off" : off , "const" : const , "singimp" : sing_imp , "gauss" : sing_gauss , "2imp" : two_imp , "2gauss" : two_gauss}
-#
-def allowed_potentials():
-  """dictionary to choose which potential function to use"""
-  return {"off"  : {2 : potential1_qb  , 4 : potential1_qq} , "const" : {2 : potential1_qb  , 4 : potential1_qq} , "singimp" : {2 : potential1_qb  , 4 : potential1_qq} ,
-          "gauss": {2 : potential1_qb  , 4 : potential1_qq} , "2imp"  : {2 : potential2_qb  , 4 : potential2_qq} , "2gauss"  : {2 : potential2_qb  , 4 : potential2_qq}}
-#
+  return [2 , 3 , 4]
+
+def mandatory_input():
+  return {2 : ["prefix" ,
+  "D"      ,
+  "ti"     , 
+  "tf"     , 
+  "N"      , 
+  "S"      , 
+  "psi0"   ,   
+  "psi1"   ,     
+  "wr00"   , 
+  "wr01"   , 
+  "wr02"   , 
+  "wr03"   , 
+  "wl0"    ,
+  "env_mode"] 
+          
+          , 4:[
+
+  "prefix" ,
+  "D"      ,
+  "ti"     , 
+  "tf"     , 
+  "N"      , 
+  "S"      , 
+  "psi0"   ,   
+  "psi1"   ,   
+  "psi2"   ,   
+  "psi3"   ,   
+  "wr00"   , 
+  "wr01"   , 
+  "wr02"   , 
+  "wr03"   , 
+  "wr10"   , 
+  "wr11"   , 
+  "wr12"   , 
+  "wr13"   , 
+  "wr20"   , 
+  "wr21"   , 
+  "wr22"   ,  
+  "wr23"   , 
+  "wr30"   , 
+  "wr31"   , 
+  "wr32"   , 
+  "wr33"   , 
+  "wl0"    ,
+  "wl1"    ,
+  "wl2"    ,
+  "wl3"    ,
+  "env_mode"
+  ]}
+
+def allowed_qbmode():
+  return {"off":
+          ["wl1" , set_input , rk4_qq , 
+          {"off": potential1_qq  , "const": potential1_qq  , "singimp": potential1_qq  , "gauss": potential1_qq  , "2impm": potential2_qq , "2gauss": potential2_qq } ] , 
+          "on"
+          :[set_input_qb , rk4_qb , 
+          {"off": potential1_qb , "const": potential1_qb , "singimp": potential1_qb , "gauss": potential1_qb  , "2impm": potential1_qb , "2gauss": potential1_qb }]}
+
+def allowed_envelope():
+  return {"off" : [[],[const]] , "const" : [["F1" , "w1"], const] , "singimp":[["F1" , "W1" , "t0" , "t1"], sing_imp] , "gauss":[["F1" , "w1" , "t0" , "sigma1"], sing_gauss] 
+          , "2imp":[["F1" , "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], two_imp] , "2gauss":[["F1" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "igma2"], two_gauss] }
+
+def allowed_dpotentials():
+  return {"off": {"off": potential1_qq  , "const": potential1_qq  , "singimp": potential1_qq  , "gauss": potential1_qq  , "2impm": potential2_qq , "2gauss": potential2_qq } , "on" : {"off": potential1_qb , "const": potential1_qb , "singimp": potential1_qb , "gauss": potential1_qb  , "2impm": potential1_qb , "2gauss": potential1_qb }}

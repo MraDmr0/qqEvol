@@ -27,27 +27,27 @@ where qq.in and qq.out are the input and output files respectively. The script i
 * pis0...psi3           = initial occupation of each state
 * wl0...wl3             = Larmor frewuencies of the system: one or four energy levels in meV
 * w00...w33             = Rabi frequencies of the system. For the two level system only use w00...w03
-* w1                    = frequency of the first (or only) potential impulse
-* F1                    = scaling factor of the potential
 * mode                  = specifies the form of the envelope function
     * "off"     : no potential
-    * "const"   : constant potential in [ti , tf]
-    * "singimp" : one sqare impulse of frequency "w1" in [t0 , t1]
-    * "gauss"   : one gaussian impulse of frequency "w1", spreading "sigma1" and centered in "t0"
-    * "2imp"    : two square impulses in [t0 , t1] with frequency "w1" and in [t00 , t11] with frewuency "w2"
-    * "2gauss"  : two gaussian impulses of frequencies "w1" and "w2", centered in "t0" and "t1" with spreadings "sigma1" and  
-                  "sigma2" 
+    * "const"   : constant potential in [ti , tf] with frequency w1 and amplitude F1
+    * "singimp" : one sqare impulse of frequency "w1" in [t0 , t1] of amplitude F1
+    * "gauss"   : one gaussian impulse centered in "t0" of frequency "w1", spreading "sigma1" and amplitude "F1"
+    * "2imp"    : two square impulses in [t0 , t1] (with frequency "w1" and amplitude "F1") and another in [t00 , t11] (with frewuency "w2" and amplitude "F2")
+    * "2gauss"  : two gaussian impulses centered in "t0" (with frequency "w1", spreading "sigma1" and amplitude "F1") and another in "t1" (with frequency "w2", spreading "sigma2" and amplitude "F2")
+
 
 #### Optional
-* t0                       = begin of first impulse if square, or center of the first gaussian impulse 
-* t1                       = end of first impulse if square, or center of the second gaussian impulse 
-* F2     (default: F1)     = scaling factor of second impulse
-* t00                      = begin of the second square impulse
-* t11                      = end of the second square impulse
-* sigma1                   = spreading of the first gaussian impulse
-* w2     (default: w1)     = frequency of the second potential impulse
-* sigma2 (default: sigma1) = spreading of the second gaussian impulse
-* qbmode (default: False)  = when enabled the Rabi frequencies are accepted as w_1+iw_2 and Larmor in Hz
+* w1      = frequency of the first (or only) potential impulse
+* F1      = scaling factor of the potential
+* t0      = begin of first impulse if square, or center of the first gaussian impulse 
+* t1      = end of first impulse if square, or center of the second gaussian impulse 
+* F2      = scaling factor of second impulse
+* t00     = begin of the second square impulse
+* t11     = end of the second square impulse
+* sigma1  = spreading of the first gaussian impulse
+* w2      = frequency of the second potential impulse
+* sigma2  = spreading of the second gaussian impulse
+* qbmode  = when enabled the Rabi frequencies are accepted as w_1+iw_2 and Larmor in Hz
 
 ## Coming next
 
