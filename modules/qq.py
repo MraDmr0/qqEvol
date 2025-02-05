@@ -44,19 +44,18 @@ if __name__ == "main":
     envelope , env_in          = check_envelope(data   , all_env )
     setinput , rk  , potential = check_qbmode(data , all_qbmode)
 
-    potential         = set_potential()
     #extract initial condition and frequencies trough set_input
-    psi_in , wr , wl , data = setinput(data)
+    psi_in , wr , wl  = setinput(data)
     #
     #begin of main calculation
     print("Begin of the calculation...")
     time1 = time.time()
     #
     #compute envelope function
-    E_in = envelope(int(data["N"]) , float(data["ti"] ) , float(data["tf"] ) , env_in)
+   # E_in = envelope(int(data["N"]) , float(data["ti"] ) , float(data["tf"] ) , env_in)
     #
     #call rk4
-    psi_out , t_out , E_out = rk(psi_in , wr , wl , E_in , potential , float(data["ti"]) , float(data["tf"]) , int(data["N"]) , int(data["S"]) , float(data["w1"]), float(data["w2"]))
+    psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , float(data["ti"]) , float(data["tf"]) , int(data["N"]) , int(data["D"]))
     #psi_out , t_out , envelope_out  = evolution(rk , envelope , potential , data)
     time2 = time.time()
     #

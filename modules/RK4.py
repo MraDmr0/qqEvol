@@ -81,10 +81,10 @@ def rk4_qb(psi0 , wr , wl , E_in , potential , ti , tf , N , S , w1 , w2):
 
 
 @njit
-def rk4_qq(psi0 , wr , wl , potential , envelope , ti , tf , N , S , w1 , w2 , D = 4):
+def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D ):
   #definition of time array
-  dt = (tf-ti)/N
   t = np.linspace(ti , tf , N+1)
+  dt = t[1]
   
   #assignement of RK coefficients
   K0 =  np.zeros(D , dtype = complex128)
@@ -99,26 +99,17 @@ def rk4_qq(psi0 , wr , wl , potential , envelope , ti , tf , N , S , w1 , w2 , D
   #assign variables to store output data
   t_out  = np.zeros(a)
   psif   = np.zeros((D , a) , dtype = complex128)
-  """ psif1  = np.zeros(a , dtype = complex128)
-  psif2  = np.zeros(a , dtype = complex128)
-  psif3  = np.zeros(a , dtype = complex128) """
+
   E_out  = np.zeros(a)
   #load the initial condition on output data
-  psif[: , 0]  = psi0[:]
+  psif[: , 0]    = psi0
   t_out[0]       = t[0]
-  """ psif1[0] = psi0[1]
-  psif2[0] = psi0[2]
-  psif3[0] = psi0[3] """
-  
-  """ if "potential1" in str(potential):
-      E_out[0]  = E_in[0,0]
-  else:
-      E_out[0] = E_in[0,0,0] + E_in[0,1,0]"""
+ 
   i        = 1 
   #RK4 cycle
   for j in range(1 , N+1):
   
-      V , E_out  = potential(t[j-1] , dt , wr , wl , w1 , w2 , envelope , D )
+      V , E_out  = potential(t[j-1] , dt , wr , wl  , envelope , D , env_in)
       
       K0 = np.dot(V[0] , psi0)
       K1 = np.dot(V[1] , psi0 + 0.5*dt*K0)
@@ -132,7 +123,7 @@ def rk4_qq(psi0 , wr , wl , potential , envelope , ti , tf , N , S , w1 , w2 , D
       #append to output data
       if j%S == 0 or j == N:
 
-          psif[:,i] = psi0[:]
+          psif[: , i] = psi0
           """ psif1[i] = psi0[1]
           psif2[i] = psi0[2]
           psif3[i] = psi0[3] """

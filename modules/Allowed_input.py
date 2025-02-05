@@ -119,7 +119,7 @@ def allowed_qbmode():
 
 def allowed_envelope():
   return {"off" : [[],[const]] , "const" : [["F1" , "w1"], const] , "singimp":[["F1" , "W1" , "t0" , "t1"], sing_imp] , "gauss":[["F1" , "w1" , "t0" , "sigma1"], sing_gauss] 
-          , "2imp":[["F1" , "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], two_imp] , "2gauss":[["F1" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "igma2"], two_gauss] }
+          , "2imp":[["F1" , "F2", "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], two_imp] , "2gauss":[["F1" , "F2" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "igma2"], two_gauss] }
 
 def allowed_dpotentials():
   return {"off": {"off": potential1_qq  , "const": potential1_qq  , "singimp": potential1_qq  , "gauss": potential1_qq  , "2impm": potential2_qq , "2gauss": potential2_qq } , "on" : {"off": potential1_qb , "const": potential1_qb , "singimp": potential1_qb , "gauss": potential1_qb  , "2impm": potential1_qb , "2gauss": potential1_qb }}
