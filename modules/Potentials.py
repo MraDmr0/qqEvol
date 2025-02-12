@@ -94,7 +94,7 @@ def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in ):
   
     V[k,:,:] *= -im*E[k]*np.cos(w1*t[k])
 
-  return V , E[0]
+  return V , E[2]
 
 @njit
 def potential2_qq(t0 , dt , wr , wl , w1 , w2 , envelope , D , env_in):
@@ -118,8 +118,8 @@ def potential2_qq(t0 , dt , wr , wl , w1 , w2 , envelope , D , env_in):
     V1[k,:,:] = -im*E[k,0]*np.cos(w1*t[k])*V[k,:,:]
     V2[k,:,:] = -im*E[k,1]*np.cos(w2*t[k])*V[k,:,:]
 
-    E[0,0] = E[0,0] + E[0,1]
+    E[2,0] = E[2,0] + E[2,1]
 
-  return V1 + V2 , E[0,0]
+  return V1 + V2 , E[2,0]
 
 

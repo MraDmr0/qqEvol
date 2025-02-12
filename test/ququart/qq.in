@@ -1,5 +1,5 @@
 ####INPUT FILE FOR qq.py####
-#Refer to README for explanaitions
+#Refer to README.md for explanaition of input parameters
 #
 ##PARAMETERS OF THE RUN##
 #Name of output file
@@ -47,12 +47,14 @@ wl3    = 46.24698
 w1      = 1.22620E+11
 w2      = 54.9952E+11
 #Envelope function
-mode    = 2gauss
+env_mode  = 2gauss
 #Envelope params  
 F1      = 0.25
 t0      = 0.2E-6
 t1      = 0.8E-6
 sigma1  = 0.06
+#Qubit mode
+qb_mode = "off"
 #
 ##END 
 

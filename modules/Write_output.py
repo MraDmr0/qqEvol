@@ -1,12 +1,16 @@
-##Functions to write the output file and save the results##
+#qqEvoll_Ver2.0: Write_output.py
 #
-from numpy import savetxt , array_str
-import datetime
+##Functions to write the input data on output file and save the results##
+#
+from numpy import savetxt
 #
 def write_out(data):
-  "writes the input library data on output file"
-  #check max length of names to print
-  length  = max(len(x) for x in data)
+  """prints the input data from dictionary in formatted way.
+     
+     Input: "data" dictionary of input data
+  """
+  #check max length of key to print
+  length  = max(len(key) for key in data)
   # decide on padding and width of *
   padding = 5
   width   = 40
@@ -15,7 +19,7 @@ def write_out(data):
   #
   print("*" * width)
   print("Input parameters : \n")
-  #print all values in input library
+  #print all values in input dictionary
   for key , value in data.items():
     #
     name = "{0:{space}}".format(key, space=space)
@@ -23,7 +27,8 @@ def write_out(data):
     print(name + " = " + num)
   #
   print("*" * width+"\n")
-#
+
+
 def save_out(prefix , psiff , tff , E_out): 
   "wirtes the results of the calculation on output files"
   #open the output files

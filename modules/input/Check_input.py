@@ -1,43 +1,42 @@
 ##Functions to check if the input data refer to supported dimensions and modes and return the correspondind functions to use##
 #
-def check_dimensions(data , allowed_dimensions):
-  if "D" in data:
+def check_qbmode(data , allowed_qbmode , mand_input):
+  if "qb_mode" in data:
+    if data["qb_mode"] in allowed_qbmode:
+      mand_input.append(allowed_qbmode[data["qb_mode"]][1])
+    else:
+      raise ValueError(f"Speciefied qbmode {data["qb_mode"]} not supported")
+  else:
+    data["qb_mode"] = "off"
+  
+  return data ,  allowed_qbmode[data["qb_mode"]][0] , mand_input , allowed_qbmode[data["qb_mode"]][2]
+
+def check_dimensions(data , allowed_dimensions , mand_input):
+  if data["qb_mode"] == "off":
     if data["D"] in allowed_dimensions:
-      pass
+      mand_input.append(allowed_dimensions[data["D"]])
     else:
       raise ValueError(f"Number of dimensions {data["D"]} not supported")
   else:
     raise ValueError(f"Missing mandatory input data D")
+  
+  return mand_input
 
-def check_mandin(data , mandatory_input):
-  for key in mandatory_input[data["D"]]:
+def check_mandin(data , mand_input):
+  for key in mand_input:
     if key not in data:
       raise ValueError(f"Missing mandatory input data {key}")
     
-def check_envelope(data , allowed_envelope ):
-  env_in = []
+def check_envelope(data , allowed_envelope , mand_input ):
   if data["env_mode"] not in allowed_envelope:
     raise ValueError(f"Specified envmode {data["env_mode"]} not supported")
   else:
     for key in allowed_envelope[data["env_mode"]][0]:
-      if key not in data:
-        raise ValueError(f"Missing envelope input data {key}")
-      else:
-        env_in.append(float(data[key]))
-  return allowed_envelope[data["env_mode"]][1] , env_in
+        mand_input.append(key)
 
-def check_qbmode(data , allowed_qbmode):
-  if "qb_mode" not in data:
-    data["qb_mode"] = "off"
-  
-  if data["qb_mode"] not in allowed_qbmode:
-    raise ValueError(f"Speciefied qbmode {data["qb_mode"]} not supported")
-  else:
-    for key in allowed_qbmode[data["qb_mode"]][0]:
-      if key not in data:
-        raise ValueError(f"Missing input data {key}")
-      
-  return allowed_qbmode[data["qb_mode"]][1] , allowed_qbmode[data["qb_mode"]][2] , allowed_qbmode[data["qb_mode"]][2][data["env_mode"]]
+  return allowed_envelope[data["env_mode"]][1] , mand_input
+
+
 
 
     

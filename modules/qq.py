@@ -1,74 +1,134 @@
-##Main executable file of qqPackage Ver. 2##
-if __name__ == "main":
+#qqEvol_Ver2.0: qq.py
+#
+##Main executable file that handels all the proesses of the qqEvol package##
+#
+if __name__ == "__main__":
+    """main file of qqEvol_Ver2.0 package that handles all the process to executes the
+       RK4 simulation.
+
+       Input: "filein" (eg. "prefix.in") with input data. 
+              See README.md for further informations on inputfile.
+       
+       Output: "prefix.out" report of the calculation, 
+               "psi_prefix.txt" occupations as a function of time,
+               "t_prefix.txt"  arrow of time,
+               "env_prefix.txt" envelope as a function of time.
+    """
+    #print starting message
+    print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
+    print("Importing needed packages...\n")
+    #
     #import python packages
-    import numpy as np
     import time
     import datetime
     import sys
-    #import local packages
-    from Allowed_input import allowed_dimensions , allowed_envelope , allowed_potentials , allowed_rk , allowed_data , allowed_pairs , mandatory_input , optional_input , allowed_qbmode
-    from Read_input    import read_input 
-    from Write_output  import write_out , save_out
-    from Set_input     import set_input_qb , set_input , set_potential
-    from Check_input   import check_dimensions , check_mandin , check_envelope , check_qbmode
-    from Evolution     import evolution
-    from Plot          import plot
+    #import qqEvol modules
+    import Allowed_input as AI
+    import Read_input    as RI
+    import Write_output  as WO
+    from Check_in import Check_input
+    import Plot          
     #
-    #Staring message
-    print("Execution of qq.py started at : " + str(datetime.datetime.now()) + "\n")
+    print("Loading data structure...\n")
     #
-    #load the key names of all possible data
-    all_data       = allowed_data()
-    #define mandatory data
-    mand_input     = mandatory_input()
+    #load the key names and types of possible input data
+    all_data       = AI.allowed_data()
     #load supported modes
-    all_dimensions = allowed_dimensions()
-    all_env        = allowed_envelope()
-    all_qbmode     = allowed_qbmode()
+    all_dim        = AI.allowed_dimension()
+    all_env        = AI.allowed_envmode()
+    all_qbmode     = AI.allowed_qbmode()
+    all_pot        = AI.allowed_pot()
     #
-    #acquire input file
+    #read the name of input file
     filein = str(sys.argv[1])
     #
-    #parse input file and appends the allowed valued to data
+    #parse input file and append values to data
     print("Looking for " + str(filein) + "...\n")
-    data = read_input(filein , all_data)
+    data = RI.read_input(filein , all_data)
     #
-    #write input data on output file
-    write_out(data)
+    #write the extracted input data on output file
+    WO.write_out(data)
     #
-    #check if dimensions and modes are supported
+    #check if specified qb_mode , env_mode and dimension are supported
+    #check if mandatory data are present in input file
+    #return the lists of keys and values of input data and the
+    #right  functions for rk4 , potential and envelope
     print("Checking input data...\n")
-    check_dimensions(data , all_dimensions)
-    check_mandin(data     , mand_input)
-    
-    envelope , env_in          = check_envelope(data   , all_env )
-    setinput , rk  , potential = check_qbmode(data , all_qbmode)
+    #initialize check_input class
+    chk = Check_input(data , all_qbmode , all_dim , all_env, all_pot)
+    #exectute check of modes
+    chk.check_qbmode()
+    chk.check_env()
+    chk.check_pot()    
+    #execute check of input data
+    chk.check_data()
+    #extract rk4, potential, envelope and set_input functions
+    rk        = chk.rk
+    potential = chk.pot
+    envelope  = chk.env
+    setinput  = chk.setin
+    key       = chk.key
+    value     = chk.value
+    #extract input data needed according to the specified modes
 
-    #extract initial condition and frequencies trough set_input
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    setinput , rk , potential , data = CI.check_qbmode(data , all_qbmode)
+   
+    CI.check_dimensions(data , all_dimensions)
+    
+    
+
+
+    CI.check_mandin(data     , mand_input)
+    #check if specified env_mode and qb_mode are supported and 
+    #if the needed input has been specified
+    envelope , env_in          = CI.check_envelope(data   , all_env)
+    
+    #
+    #extract initial condition and frequencies trough set_input 
+    #depending on dimensions and qb_mode
     psi_in , wr , wl  = setinput(data)
     #
     #begin of main calculation
-    print("Begin of the calculation...")
+    print("Begin of the calculation...\n")
+    #
+    #read current time
     time1 = time.time()
     #
-    #compute envelope function
-   # E_in = envelope(int(data["N"]) , float(data["ti"] ) , float(data["tf"] ) , env_in)
-    #
     #call rk4
-    psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , float(data["ti"]) , float(data["tf"]) , int(data["N"]) , int(data["D"]))
-    #psi_out , t_out , envelope_out  = evolution(rk , envelope , potential , data)
+    psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , 
+                                 float(data["ti"]) , float(data["tf"]) , int(data["N"]) , int(data["D"]))
+    #
+    #read current time
     time2 = time.time()
     #
+    #end of main calculation
+    print("Calculation completed successfully")
+    print("Elapsed time for RK4 cycle : " + str(time2-time1) + " s \n" )
+    #
     #Write final result on text file
-    save_out(data["prefix"] , psi_out , t_out , E_out)
+    WO.save_out(data["prefix"] , psi_out , t_out , E_out)
+    print("Reults written on psi_"+data["prefix"]+".txt'")
     #
     #plot results
-    plot(data["prefix"] , float(data["D"]))
+    Plot.plot(data["prefix"] , float(data["D"]))
     #
-    #Exit message
-    print("Calculation completed successfully at : "+ str(datetime.datetime.now())+"\n")
-    print("Elapsed time for main process : " + str(time2-time1) + " s \n" )
-    print("Reults written on psi_"+data["prefix"]+".txt'")
+    #exit message
+    print(f"The execution of qq.py has been completed successfully at: "+ str(datetime.datetime.now())+"\n")")
+    
+    
 
 
 

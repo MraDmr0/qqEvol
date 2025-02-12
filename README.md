@@ -27,7 +27,7 @@ where qq.in and qq.out are the input and output files respectively. The script i
 * pis0...psi3           = initial occupation of each state
 * wl0...wl3             = Larmor frewuencies of the system: one or four energy levels in meV
 * w00...w33             = Rabi frequencies of the system. For the two level system only use w00...w03
-* mode                  = specifies the form of the envelope function
+* env_mode              = specifies the form of the envelope function. Supported modes:
     * "off"     : no potential
     * "const"   : constant potential in [ti , tf] with frequency w1 and amplitude F1
     * "singimp" : one sqare impulse of frequency "w1" in [t0 , t1] of amplitude F1
@@ -37,17 +37,17 @@ where qq.in and qq.out are the input and output files respectively. The script i
 
 
 #### Optional
-* w1      = frequency of the first (or only) potential impulse
-* F1      = scaling factor of the potential
-* t0      = begin of first impulse if square, or center of the first gaussian impulse 
-* t1      = end of first impulse if square, or center of the second gaussian impulse 
-* F2      = scaling factor of second impulse
-* t00     = begin of the second square impulse
-* t11     = end of the second square impulse
-* sigma1  = spreading of the first gaussian impulse
-* w2      = frequency of the second potential impulse
-* sigma2  = spreading of the second gaussian impulse
-* qbmode  = when enabled the Rabi frequencies are accepted as w_1+iw_2 and Larmor in Hz
+* w1               = frequency of the first (or only) potential impulse
+* w2               = frequency of the second potential impulse
+* F1               = scaling factor of the first (or only) potential impulse
+* F2               = scaling factor of the second potential impulse
+* t0               = begin of first impulse if square, or center of the first gaussian impulse 
+* t1               = end of first impulse if square, or center of the second gaussian impulse 
+* t00              = begin of the second square impulse
+* t11              = end of the second square impulse
+* sigma1           = spreading of the first gaussian impulse
+* sigma2           = spreading of the second gaussian impulse
+* qb_mode ("off")  = when enabled ("on"), the Rabi frequencies are accepted as w_1+iw_2 and the Larmor frequencies in Hz 
 
 ## Coming next
 
