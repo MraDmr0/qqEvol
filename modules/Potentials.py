@@ -6,7 +6,7 @@ h_bar = 6.582119569E-13
 im = 1j
 #
 @njit
-def potential1_qb(t0 , dt , wr1 , wr2, w1 , w2 , E_in ):
+def potential1_qb(t , dt , wr , wl  , envelope , D , env_in):
     """
     Function that computes the qubit potential at the three times needed for the RK4 algorithm.
     
@@ -36,7 +36,7 @@ def potential1_qb(t0 , dt , wr1 , wr2, w1 , w2 , E_in ):
 
 
 @njit
-def potential2_qb(t0 , dt , wr1 , wr2, w1 , w2 , E_in):
+def potential2_qb(t , dt , wr , wl  , envelope , D , env_in):
     """
     Function that computes the qubit potential at the three times needed for the RK4 algorithm.
     
@@ -97,7 +97,7 @@ def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in ):
   return V , E[2]
 
 @njit
-def potential2_qq(t0 , dt , wr , wl , w1 , w2 , envelope , D , env_in):
+def potential2_qq(t , dt , wr , wl  , envelope , D , env_in):
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""
   V   = np.zeros((3,D,D)  , dtype = complex128)

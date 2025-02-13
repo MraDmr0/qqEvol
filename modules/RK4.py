@@ -69,7 +69,7 @@ def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
   return psiff , t_out , E_out
 
 @njit
-def rk4_qb(psi0 , wr , wl , E_in , potential , ti , tf , N , S , w1 , w2):
+def rk4_qb(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D ):
     """Function that performs the time evolution with RK4 method usign potential_qb"""
    #conversion of Rabi frequencies in the form accepted by potential_qb
     wrr1 = np.zeros(5 , dtype = complex64)

@@ -67,38 +67,8 @@ if __name__ == "__main__":
     potential = chk.pot
     envelope  = chk.env
     setinput  = chk.setin
-    key       = chk.key
-    value     = chk.value
+    env_in    = chk.env_in
     #extract input data needed according to the specified modes
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    setinput , rk , potential , data = CI.check_qbmode(data , all_qbmode)
-   
-    CI.check_dimensions(data , all_dimensions)
-    
-    
-
-
-    CI.check_mandin(data     , mand_input)
-    #check if specified env_mode and qb_mode are supported and 
-    #if the needed input has been specified
-    envelope , env_in          = CI.check_envelope(data   , all_env)
-    
-    #
-    #extract initial condition and frequencies trough set_input 
-    #depending on dimensions and qb_mode
     psi_in , wr , wl  = setinput(data)
     #
     #begin of main calculation
@@ -108,8 +78,7 @@ if __name__ == "__main__":
     time1 = time.time()
     #
     #call rk4
-    psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , 
-                                 float(data["ti"]) , float(data["tf"]) , int(data["N"]) , int(data["D"]))
+    psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , data["ti"] , data["tf"] , data["N"] , data["S"] , data["D"])
     #
     #read current time
     time2 = time.time()
@@ -120,10 +89,10 @@ if __name__ == "__main__":
     #
     #Write final result on text file
     WO.save_out(data["prefix"] , psi_out , t_out , E_out)
-    print("Reults written on psi_"+data["prefix"]+".txt'")
+    print("Reults written on psi_" + data["prefix"]+".txt'")
     #
     #plot results
-    Plot.plot(data["prefix"] , float(data["D"]))
+    Plot.plot(data["prefix"] , data["D"])
     #
     #exit message
     print(f"The execution of qq.py has been completed successfully at: "+ str(datetime.datetime.now())+"\n")")

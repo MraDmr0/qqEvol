@@ -1,4 +1,4 @@
-# qqEvol_2.0
+# qqEvol_Ver2.0
 
 ## Description of the package
 
