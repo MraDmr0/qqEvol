@@ -15,8 +15,7 @@ if __name__ == "__main__":
                "env_prefix.txt" envelope as a function of time.
     """
     #print starting message
-    print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
-    print("Importing needed packages...\n")
+    
     #
     #import python packages
     import time
@@ -29,6 +28,7 @@ if __name__ == "__main__":
     from Check_in import Check_input
     import Plot          
     #
+    print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
     print("Loading data structure...\n")
     #
     #load the key names and types of possible input data

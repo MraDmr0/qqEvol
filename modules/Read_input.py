@@ -16,7 +16,7 @@ def read_input(filein , allowed_data):
     Output: "data" dictionary of keys and values of input data
   """
   #initialize empty dictionary
-  data = {
+  data = {}
   #try to open filein
   try:
     with open(filein , "r") as textfile:
