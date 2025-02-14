@@ -1,5 +1,12 @@
 from itertools import chain
 import sys
+
+
+from RK4        import rk4_qb , rk4_qq
+from Set_input  import set_input_qb , set_input
+from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+
 class Check_input:
     
     def __init__(self , data , all_qbmode , all_dim , all_env, all_pot): 
@@ -20,7 +27,7 @@ class Check_input:
     def check_dim(self):
         if "D" in self.data:
             if str(self.data["D"]) in self.all_dim:
-                self.key += [(self.all_dim[str(self.data["D"])])]
+                self._key += [(self.all_dim[str(self.data["D"])])]
             else:
                  print(f"Error: the specified value '{self.data['D']}' for 'D' is not supported")
                  sys.exit(1)
@@ -36,7 +43,7 @@ class Check_input:
             print(f"Error: the specified value '{self.data['qb_mode']}' for 'qb_mode' is not supported")
             sys.exit(1)
         
-        self.key   += [(self.all_qbmode[str(self.data["qb_mode"])][0])]
+        self._key   += [(self.all_qbmode[str(self.data["qb_mode"])][0])]
         self.setin  = self.all_qbmode[str(self.data["qb_mode"])][1]
         self.rk     = self.all_qbmode[str(self.data["qb_mode"])][2]
 
@@ -46,9 +53,9 @@ class Check_input:
     def check_env(self):
         if "env_mode" in self.data:
             if str(self.data["env_mode"]) in self.all_env:
-                self.key    += [(self.all_env[str(self.data["env_mode"])][0])]
+                self._key   += [(self.all_env[str(self.data["env_mode"])][0])]
                 self.env_in += [(self.all_env[str(self.data["env_mode"])][0])]
-                self.env    = self.all_env[str(self.data["env_mode"])][1]
+                self.env     = self.all_env[str(self.data["env_mode"])][1]
                 
             else:
               print(f"Error: the specified value '{self.data['env_mode']}' for 'env_mode' is not suppoprted")
@@ -63,14 +70,15 @@ class Check_input:
                 self.pot = self.all_pot[str(self.data["qb_mode"])][str(self.data["env_mode"])]
 
     def check_data(self):
-        self.input  = list(chain(*self.input))
+        self._key  = list(chain(*self._key))
         self.env_in = list(chain(*self.env_in))
-        for key in self.key:
+        for key in self._key:
             if key in self.data:
-                self.value += [(self.data[key])]
+                self._value += [(self.data[key])]
             else:
                 print(f"Error: missing mandatory input '{key}'")       
                 sys.exit(1)  
+        
         i = 0
         for key in self.all_env[str(self.data["env_mode"])][0]:
           self.env_in[i] = float(self.data[key])

@@ -1,11 +1,13 @@
 import numpy as np
+from numba import njit
 
+@njit
 def off(*args , **kwargs):
-  E    = np.array(3)
-  E[:] = 0
+  E    = [0,0,0]
   
   return E
 
+@njit
 def const(t , env_in):
   
   F1   = env_in[0]
@@ -14,6 +16,7 @@ def const(t , env_in):
   E[:] = F1 
   return E
 
+@njit
 def sing_imp(t, env_in):
   F1 = env_in[0]
   t0 = env_in[2]
@@ -29,6 +32,7 @@ def sing_imp(t, env_in):
 
   return E
 
+@njit
 def sing_gauss(t, env_in):
   F1     = env_in[0]
   t0     = env_in[2]
@@ -40,6 +44,7 @@ def sing_gauss(t, env_in):
   
   return E
 
+@njit
 def two_imp(t, env_in):
   F1 = env_in[0]
   F2 = env_in[1]
@@ -58,7 +63,7 @@ def two_imp(t, env_in):
       E[i,1] = F2
 
   return E
-
+@njit
 def two_gauss(t , env_in):
   F1 = env_in[0]
   F2 = env_in[1]

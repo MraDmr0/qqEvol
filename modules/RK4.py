@@ -5,20 +5,22 @@
 import numpy as np
 from   numba import njit , complex64 , complex128
 
+from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+
 #imaginary unit
 im = 1j
 
-@njit
+#@njit
 def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D ):
   #definition of time array
   t  = np.linspace(ti , tf , N+1)
   dt = t[1]
   
   #definition RK coefficients
-  K0 =  np.zeros(D , dtype = complex128)
-  K1 =  np.zeros(D , dtype = complex128)
-  K2 =  np.zeros(D , dtype = complex128)
-  K3 =  np.zeros(D , dtype = complex128)
+  K0 =  np.zeros(D , dtype = complex)
+  K1 =  np.zeros(D , dtype = complex)
+  K2 =  np.zeros(D , dtype = complex)
+  K3 =  np.zeros(D , dtype = complex)
   
   #check the number of points to be saved on the output file
   if N%S != 0 :
@@ -28,7 +30,7 @@ def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
 
   #define variables to store output data
   t_out  = np.zeros(a)
-  psif   = np.zeros((D , a) , dtype = complex128)
+  psif   = np.zeros((D , a) , dtype = complex)
   E_out  = np.zeros(a)
 
   #load the initial condition on output data
@@ -40,7 +42,7 @@ def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
   #RK4 cycle
   for j in range(1 , N+1):
   
-      V , E_out  = potential(t[j-1] , dt , wr , wl  , envelope , D , env_in)
+      V , E  = potential(t[j-1] , dt , wr , wl  , envelope , D , env_in)
       
       K0 = np.dot(V[0] , psi0)
       K1 = np.dot(V[1] , psi0 + 0.5*dt*K0)
@@ -59,9 +61,9 @@ def rk4_qq(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
           psif[: , i] = psi0
           t_out[i]    = t[j]
           if "potential1" in str(potential):
-            E_out[i,0]  = E_out[0,0]
+            E_out[i]  = E
           else:
-            E_out[i,0]  = E_out[0,0] + E_out[0,1]
+            E_out[i,0]  = E[0,0] + E[0,1]
           
           i = i + 1
   
@@ -90,10 +92,10 @@ def rk4_qb(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
     dt = (tf-ti)/N
     t = np.linspace(ti , tf , N+1)
     #assignement of RK coefficients
-    K0 =  np.zeros(2 , dtype = complex128)
-    K1 =  np.zeros(2 , dtype = complex128)
-    K2 =  np.zeros(2 , dtype = complex128)
-    K3 =  np.zeros(2 , dtype = complex128)
+    K0 =  np.zeros(2 , dtype = complex)
+    K1 =  np.zeros(2 , dtype = complex)
+    K2 =  np.zeros(2 , dtype = complex)
+    K3 =  np.zeros(2 , dtype = complex)
     #check if the number of points saved on the output file
     if N%S != 0 :
         a     = int(N/S)+2
@@ -101,8 +103,8 @@ def rk4_qb(psi0 , wr , wl , envelope , env_in , potential , ti , tf , N , S , D 
         a     = int(N/S)+1
     #assign variables to store output data
     tff    = np.zeros(a)
-    psif0  = np.zeros(a , dtype = complex128)
-    psif1  = np.zeros(a , dtype = complex128)
+    psif0  = np.zeros(a , dtype = complex)
+    psif1  = np.zeros(a , dtype = complex)
     E_out   = np.zeros(a)
     #load the initial condition on output data
     psif0[0] = psi0[0]

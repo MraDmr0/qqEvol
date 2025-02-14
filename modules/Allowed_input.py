@@ -25,8 +25,8 @@ def allowed_qbmode():
      mandatory input, rk4 function and set_input function to be used"""
   
   d = {
-  "off" : [["prefix" , "D"  , "ti" , "tf" , "N"  , "S"  , "env_mode"], set_input_qb , rk4_qb ] , 
-  "on" : [["prefix" , "ti" , "tf" , "N"  , "S"  , "env_mode" , "wr00" , "wr01" , "wr02" , "wr03" , "wl0"], set_input , rk4_qq]
+  "on" : [["prefix" , "D"  , "ti" , "tf" , "N"  , "S"  , "env_mode"], set_input_qb , rk4_qb ] , 
+  "off" : [["prefix" , "ti" , "tf" , "N"  , "S"  , "env_mode" , "wr00" , "wr01" , "wr02" , "wr03" , "wl0"], set_input , rk4_qq]
   }
   return d
 
@@ -55,7 +55,7 @@ def allowed_envmode():
   """Returns the dictionary of supported env_mode and the corresponding
     mandatory input and envelope function to be used"""
   d = {
-    "off"    :[[],[off]] , 
+    "off"    :[["N"  , "w1"] , off] , 
     "const"  :[["F1" , "w1"], const] , 
     "singimp":[["F1" , "W1" , "t0" , "t1"], sing_imp] , 
     "gauss"  :[["F1" , "w1" , "t0" , "sigma1"], sing_gauss] ,

@@ -1,11 +1,13 @@
 import numpy as np
 from numba import njit , complex128
 
+from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+
 #definition of local variables (meV s)
 h_bar = 6.582119569E-13
 im = 1j
 #
-@njit
+#@njit
 def potential1_qb(t , dt , wr , wl  , envelope , D , env_in):
     """
     Function that computes the qubit potential at the three times needed for the RK4 algorithm.
@@ -35,7 +37,7 @@ def potential1_qb(t , dt , wr , wl  , envelope , D , env_in):
     return V
 
 
-@njit
+#@njit
 def potential2_qb(t , dt , wr , wl  , envelope , D , env_in):
     """
     Function that computes the qubit potential at the three times needed for the RK4 algorithm.
@@ -74,7 +76,7 @@ def potential2_qb(t , dt , wr , wl  , envelope , D , env_in):
 
 
 @njit
-def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in ):
+def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in):
 
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""
@@ -96,7 +98,7 @@ def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in ):
 
   return V , E[2]
 
-@njit
+#@njit
 def potential2_qq(t , dt , wr , wl  , envelope , D , env_in):
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""

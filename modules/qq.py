@@ -26,7 +26,13 @@ if __name__ == "__main__":
     import Read_input    as RI
     import Write_output  as WO
     from Check_in import Check_input
-    import Plot          
+    import Plot        
+    
+    from RK4        import rk4_qb , rk4_qq
+    from Set_input  import set_input_qb , set_input
+    from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+    from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+  
     #
     print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
     print("Loading data structure...\n")
@@ -73,11 +79,16 @@ if __name__ == "__main__":
     #
     #begin of main calculation
     print("Begin of the calculation...\n")
+    print(potential)
+    print(envelope)
+    print(rk)
+    print(setinput)
     #
     #read current time
     time1 = time.time()
     #
     #call rk4
+    print(env_in)
     psi_out , t_out , E_out = rk(psi_in , wr , wl , envelope , env_in , potential , data["ti"] , data["tf"] , data["N"] , data["S"] , data["D"])
     #
     #read current time
@@ -95,8 +106,7 @@ if __name__ == "__main__":
     Plot.plot(data["prefix"] , data["D"])
     #
     #exit message
-    print(f"The execution of qq.py has been completed successfully at: "+ str(datetime.datetime.now())+"\n")")
-    
+    print(f"The execution of qq.py has been completed successfully at: "+ str(datetime.datetime.now())+"\n")
     
 
 
