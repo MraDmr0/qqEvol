@@ -96,10 +96,10 @@ def potential1_qq(t0 , dt , wr , wl , envelope , D , env_in):
   
     V[k,:,:] *= -im*E[k]*np.cos(w1*t[k])
 
-  return V , E[2]
+  return V , E
 
-#@njit
-def potential2_qq(t , dt , wr , wl  , envelope , D , env_in):
+@njit
+def potential2_qq(t0 , dt , wr , wl  , envelope , D , env_in):
   """Function that computes the qubit potential at the three times needed for the RK4 algorithm.
      The Rabi frequencies are given in matrix form, while Larmor frequencies are intended as the energy of each level in meV"""
   V   = np.zeros((3,D,D)  , dtype = complex128)
@@ -109,6 +109,7 @@ def potential2_qq(t , dt , wr , wl  , envelope , D , env_in):
 
   E   = np.array((3,2))
   E   = envelope(t , env_in)
+
   w1  = env_in[2]
   w2  = env_in[3]
 
@@ -120,8 +121,8 @@ def potential2_qq(t , dt , wr , wl  , envelope , D , env_in):
     V1[k,:,:] = -im*E[k,0]*np.cos(w1*t[k])*V[k,:,:]
     V2[k,:,:] = -im*E[k,1]*np.cos(w2*t[k])*V[k,:,:]
 
-    E[2,0] = E[2,0] + E[2,1]
+  E[:,0] = E[:,0] + E[:,1]
 
-  return V1 + V2 , E[2,0]
+  return V1 + V2 , E[:,0]
 
 

@@ -21,12 +21,19 @@ if __name__ == "__main__":
     import time
     import datetime
     import sys
+    from numpy import array
     #import qqEvol modules
     import Allowed_input as AI
     import Read_input    as RI
     import Write_output  as WO
     from Check_in import Check_input
-    import Plot          
+    import Plot        
+    
+    from RK4        import rk4_qb , rk4_qq
+    from Set_input  import set_input_qb , set_input
+    from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+    from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+  
     #
     print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
     print("Loading data structure...\n")
@@ -67,7 +74,7 @@ if __name__ == "__main__":
     potential = chk.pot
     envelope  = chk.env
     setinput  = chk.setin
-    env_in    = chk.env_in
+    env_in    = array(chk.env_in)
     #extract input data needed according to the specified modes
     psi_in , wr , wl  = setinput(data)
     #
@@ -96,7 +103,6 @@ if __name__ == "__main__":
     #
     #exit message
     print(f"The execution of qq.py has been completed successfully at: "+ str(datetime.datetime.now())+"\n")
-    
     
 
 

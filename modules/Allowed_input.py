@@ -57,7 +57,7 @@ def allowed_envmode():
   d = {
     "off"    :[["N"  , "w1"] , off] , 
     "const"  :[["F1" , "w1"], const] , 
-    "singimp":[["F1" , "W1" , "t0" , "t1"], sing_imp] , 
+    "singimp":[["F1" , "w1" , "t0" , "t1"], sing_imp] , 
     "gauss"  :[["F1" , "w1" , "t0" , "sigma1"], sing_gauss] ,
     "2imp"   :[["F1" , "F2", "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], two_imp] , 
     "2gauss" :[["F1" , "F2" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "sigma2"], two_gauss] 

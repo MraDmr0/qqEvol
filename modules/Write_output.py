@@ -23,7 +23,7 @@ def write_out(data):
   for key , value in data.items():
     #
     name = "{0:{space}}".format(key, space=space)
-    num  = "{0:5}".format(value)
+    num  = "{0:1}".format(value)
     print(name + " = " + num)
   #
   print("*" * width+"\n")

@@ -1,5 +1,12 @@
 from itertools import chain
 import sys
+
+
+from RK4        import rk4_qb , rk4_qq
+from Set_input  import set_input_qb , set_input
+from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+
 class Check_input:
     
     def __init__(self , data , all_qbmode , all_dim , all_env, all_pot): 
@@ -46,9 +53,9 @@ class Check_input:
     def check_env(self):
         if "env_mode" in self.data:
             if str(self.data["env_mode"]) in self.all_env:
-                self._key    += [(self.all_env[str(self.data["env_mode"])][0])]
+                self._key   += [(self.all_env[str(self.data["env_mode"])][0])]
                 self.env_in += [(self.all_env[str(self.data["env_mode"])][0])]
-                self.env    = self.all_env[str(self.data["env_mode"])][1]
+                self.env     = self.all_env[str(self.data["env_mode"])][1]
                 
             else:
               print(f"Error: the specified value '{self.data['env_mode']}' for 'env_mode' is not suppoprted")
@@ -71,6 +78,7 @@ class Check_input:
             else:
                 print(f"Error: missing mandatory input '{key}'")       
                 sys.exit(1)  
+        
         i = 0
         for key in self.all_env[str(self.data["env_mode"])][0]:
           self.env_in[i] = float(self.data[key])

@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit
 
 @njit
-def off(*args , **kwargs):
+def off(t , env_in):
   E    = [0,0,0]
   
   return E
@@ -11,9 +11,7 @@ def off(*args , **kwargs):
 def const(t , env_in):
   
   F1   = env_in[0]
-  E    = np.array(3)
-
-  E[:] = F1 
+  E    = np.array([F1,F1,F1])
   return E
 
 @njit
@@ -63,6 +61,9 @@ def two_imp(t, env_in):
       E[i,1] = F2
 
   return E
+
+
+  
 @njit
 def two_gauss(t , env_in):
   F1 = env_in[0]
