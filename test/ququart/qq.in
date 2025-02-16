@@ -47,9 +47,9 @@ wl3    = 46.24698
 w1      = 1.22620E+11
 w2      = 54.9952E+11
 #Envelope function
-env_mode  = 2gauss
+env_mode  = const
 #Envelope params  
-F1      = 0.25
+F1      = 1
 t0      = 0.2E-6
 t1      = 0.8E-6
 sigma1  = 0.06

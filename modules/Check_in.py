@@ -2,10 +2,7 @@ from itertools import chain
 import sys
 
 
-from RK4        import rk4_qb , rk4_qq
-from Set_input  import set_input_qb , set_input
-from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
-from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+#
 
 class Check_input:
     
@@ -49,6 +46,8 @@ class Check_input:
 
         if self.data["qb_mode"] == "off":
             self.check_dim()
+        else:
+           self.data["D"] = 2
 
     def check_env(self):
         if "env_mode" in self.data:

@@ -23,16 +23,16 @@ if __name__ == "__main__":
     import sys
     from numpy import array
     #import qqEvol modules
-    import Allowed_input as AI
-    import Read_input    as RI
-    import Write_output  as WO
-    from Check_in import Check_input
-    import Plot        
+    from qqEvol.modules import Allowed_input as AI
+    from qqEvol.modules import Read_input    as RI
+    from qqEvol.modules import Write_output  as WO
+    from qqEvol.modules import Check_in      as CI
+    from qqEvol.modules import Plot        
     
-    from RK4        import rk4_qb , rk4_qq
-    from Set_input  import set_input_qb , set_input
-    from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
-    from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+    #from modules import RK4 as RK      
+    #from Set_input  import set_input_qb , set_input
+    #from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
+   # from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
   
     #
     print("Execution of qq.py started at: " + str(datetime.datetime.now()) + "\n")
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     #right  functions for rk4 , potential and envelope
     print("Checking input data...\n")
     #initialize check_input class
-    chk = Check_input(data , all_qbmode , all_dim , all_env, all_pot)
+    chk = CI.Check_input(data , all_qbmode , all_dim , all_env, all_pot)
     #exectute check of modes
     chk.check_qbmode()
     chk.check_env()

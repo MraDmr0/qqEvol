@@ -19,25 +19,11 @@ S       = 20
 #Initial status
 psi0      = 1
 psi1      = 0
-psi2      = 0 
-psi3      = 0
 #Rabi frequencies (for P =2 intended as pure Rabi frequencies, for P = 4 intended as w_+)
 wr00    = 7.75E+11
 wr01    = 8.93E+6
 wr02    = 3.86E-5
 wr03    = 4.09E+7
-wr10    = 0
-wr11    = 0
-wr12    = 0 
-wr13    = 0
-wr20    = 0
-wr21    = 0
-wr22    = 0
-wr23    = 0
-wr30    = 0 
-wr31    = 0
-wr32    = 0
-wr33    = 0
 #Lamror frequencies (for P = 2 intended as pure Larmor frequency, for P = 4 intended as energies of each level)
 wl0    = 1.22E+11
 wl1    = 0
@@ -47,11 +33,12 @@ wl3    = 0
 w1      = 1.22E+11
 w2      = 1.2E+11
 #Envelope funciton
-mode = 2gauss
+env_mode = const
 F1   = 0.25
 F2   = 1
 t0   = 0.2E-5
 t1   = 0.8E-5
 sigma1 = 0.1
+qb_mode = on
 #
 ##END 

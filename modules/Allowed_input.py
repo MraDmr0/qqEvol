@@ -2,10 +2,10 @@
 #
 ##Set of functions to define allowed data, dimensions, potentials and other features of the qqEvol package##
 #
-from RK4        import rk4_qb , rk4_qq
-from Set_input  import set_input_qb , set_input
-from Potentials import potential1_qb , potential1_qq , potential2_qb , potential2_qq
-from Envelopes  import off , const , sing_imp , sing_gauss , two_imp , two_gauss
+from qqEvol.modules import RK4        as RK
+from qqEvol.modules import Set_input  as SI
+from qqEvol.modules import Potentials as PO
+from qqEvol.modules import Envelopes  as EN
 
 def allowed_data():
   """Returns the dictionary of allowed input data 
@@ -25,8 +25,8 @@ def allowed_qbmode():
      mandatory input, rk4 function and set_input function to be used"""
   
   d = {
-  "on" : [["prefix" , "D"  , "ti" , "tf" , "N"  , "S"  , "env_mode"], set_input_qb , rk4_qb ] , 
-  "off" : [["prefix" , "ti" , "tf" , "N"  , "S"  , "env_mode" , "wr00" , "wr01" , "wr02" , "wr03" , "wl0"], set_input , rk4_qq]
+  "on" : [["prefix" , "D"  , "ti" , "tf" , "N"  , "S"  , "env_mode"], SI.set_input_qb , RK.rk4_qb ] , 
+  "off" : [["prefix" , "ti" , "tf" , "N"  , "S"  , "env_mode" , "wr00" , "wr01" , "wr02" , "wr03" , "wl0"], SI.set_input , RK.rk4_qq]
   }
   return d
 
@@ -46,8 +46,8 @@ def allowed_pot():
      and the corresponding potential function to be used"""
   
   d = { 
-    "off": {"off": potential1_qq , "const" : potential1_qq , "singimp" : potential1_qq , "gauss": potential1_qq , "2imp" : potential2_qq , "2gauss" : potential2_qq} ,
-    "on" : {"off": potential1_qb , "const" : potential1_qb , "singimp" : potential1_qb , "gauss": potential1_qb , "2imp" : potential2_qb , "2gauss" : potential2_qb}
+    "off": {"off": PO.potential1_qq , "const" : PO.potential1_qq , "singimp" : PO.potential1_qq , "gauss": PO.potential1_qq , "2imp" : PO.potential2_qq , "2gauss" : PO.potential2_qq} ,
+    "on" : {"off": PO.potential1_qb , "const" : PO.potential1_qb , "singimp" : PO.potential1_qb , "gauss": PO.potential1_qb , "2imp" : PO.potential2_qb , "2gauss" : PO.potential2_qb}
   }
   return d
 
@@ -55,11 +55,11 @@ def allowed_envmode():
   """Returns the dictionary of supported env_mode and the corresponding
     mandatory input and envelope function to be used"""
   d = {
-    "off"    :[["N"  , "w1"] , off] , 
-    "const"  :[["F1" , "w1"], const] , 
-    "singimp":[["F1" , "w1" , "t0" , "t1"], sing_imp] , 
-    "gauss"  :[["F1" , "w1" , "t0" , "sigma1"], sing_gauss] ,
-    "2imp"   :[["F1" , "F2", "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], two_imp] , 
-    "2gauss" :[["F1" , "F2" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "sigma2"], two_gauss] 
+    "off"    :[["N"  , "w1"] , EN.off] , 
+    "const"  :[["F1" , "w1"], EN.const] , 
+    "singimp":[["F1" , "w1" , "t0" , "t1"], EN.sing_imp] , 
+    "gauss"  :[["F1" , "w1" , "t0" , "sigma1"], EN.sing_gauss] ,
+    "2imp"   :[["F1" , "F2", "w1" , "w2" , "t0" , "t1" , "t00" , "t11"], EN.two_imp] , 
+    "2gauss" :[["F1" , "F2" , "w1" , "w2" , "t0" , "t1" , "sigma1" , "sigma2"], EN.two_gauss] 
     }
   return d
