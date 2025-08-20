@@ -13,7 +13,7 @@ The main calculation can be started from command line:
 
 \$ python qqE.py qq.in > qq.out
 
-where qq.in and qq.out are the input and output files respectively. The script is going to produce the files "psi_qq", "t_qq" and "envelope_qq" that contain the wavefucntions, the array of times and the points of the envelope function. The obtained resutls can be plotted with the "Plot.py" routine.
+where qq.in and qq.out are the input and output files respectively; errors and useful messages are printed in "qq.out". The script is going to produce the files "psi_qq", "t_qq" and "envelope_qq" that contain the wavefucntions, the array of times and the points of the envelope function. The obtained resutls are plotted with the "Plot.py" routine.
 
 ### Input file desctiption
 
