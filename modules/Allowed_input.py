@@ -2,10 +2,10 @@
 #
 ##Set of functions to define allowed data, dimensions, potentials and other features of the qqEvol package##
 #
-from qqEvol.modules import RK4        as RK
-from qqEvol.modules import Set_input  as SI
-from qqEvol.modules import Potentials as PO
-from qqEvol.modules import Envelopes  as EN
+from modules import RK4        as RK
+from modules import Set_input  as SI
+from modules import Potentials as PO
+from modules import Envelopes  as EN
 
 def allowed_data():
   """Returns the dictionary of allowed input data 
