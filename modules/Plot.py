@@ -29,7 +29,7 @@ def plot(prefix , D):
   
   #personalization
   ax.set_xlabel(r"Time $(\mu s)$")
-  ax.set_ylabel("$|\Psi|^2$")
+  ax.set_ylabel("r$|\Psi|^2$")
   ax1.set_ylabel("Envelope intensity")
 
   #save fiugre
