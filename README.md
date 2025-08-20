@@ -15,6 +15,10 @@ The main calculation can be started from command line:
 
 where qq.in and qq.out are the input and output files respectively; errors and useful messages are printed in "qq.out". The script is going to produce the files "psi_qq", "t_qq" and "envelope_qq" that contain the wavefucntions, the array of times and the points of the envelope function. The obtained resutls are plotted with the "Plot.py" routine.
 
+The required python package can be installed as:
+
+\$ pip install -r requirements.txt
+
 ### Input file desctiption
 
 #### Mandatory
