@@ -23,11 +23,11 @@ if __name__ == "__main__":
     import sys
     from numpy import array
     #import qqEvol modules
-    from qqEvol.modules import Allowed_input as AI
-    from qqEvol.modules import Read_input    as RI
-    from qqEvol.modules import Write_output  as WO
-    from qqEvol.modules import Check_in      as CI
-    from qqEvol.modules import Plot        
+    from modules import Allowed_input as AI
+    from modules import Read_input    as RI
+    from modules import Write_output  as WO
+    from modules import Check_in      as CI
+    from modules import Plot        
     
     #from modules import RK4 as RK      
     #from Set_input  import set_input_qb , set_input
